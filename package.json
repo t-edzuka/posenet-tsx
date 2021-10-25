@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "@mui/styled-engine-sc": "^5.0.3",
+    "@tensorflow-models/posenet": "2.2.2",
     "@tensorflow/tfjs": "^3.10.0",
     "@tensorflow/tfjs-backend-webgl": "^3.10.0",
     "@tensorflow/tfjs-converter": "^3.10.0",
@@ -21,6 +22,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-use": "17.3.1",
     "react-webcam": "^6.0.0",
     "styled-components": "^5.3.3",
     "typescript": "^4.1.2",
@@ -54,5 +56,7 @@
     "@tensorflow-models/posenet": "^2.2.2",
     "eslint-plugin-react": "^7.26.1",
     "react-use": "^17.3.1"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
