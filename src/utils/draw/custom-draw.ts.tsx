@@ -5,7 +5,7 @@ import { isContext2D, isPose, isPoses } from "../validations";
 export const drawSinglePerson = (
   pose: Pose | null | undefined,
   minConfidence: number,
-  ctx: CanvasRenderingContext2D | null,
+  ctx: CanvasRenderingContext2D | null | undefined,
   scale = 1
 ) => {
   if (isContext2D(ctx) && isPose(pose)) {
@@ -17,7 +17,7 @@ export const drawSinglePerson = (
 export const drawMultiPerson = (
   poses: Pose[] | null | undefined,
   minConfidence: number,
-  ctx: CanvasRenderingContext2D | null,
+  ctx: CanvasRenderingContext2D | null | undefined,
   scale = 1
 ) => {
   if (isContext2D(ctx) && isPoses(poses)) {
