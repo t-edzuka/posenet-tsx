@@ -38,6 +38,12 @@ export const WebcamStyle: WebcamStyle = {
     ...VideoSize
 };
 
+export const videoConstraints : MediaTrackConstraints = {
+    width: 640,
+    height: 480,
+    facingMode: "user",
+};
+
 export const modelConfig: ModelConfig = {
   architecture: "MobileNetV1",
   outputStride: 16,
