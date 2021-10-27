@@ -1,12 +1,12 @@
 import React from "react";
-import CustomWebcam from "./components/Camera/CustomWebcam";
 import CustomAppBar from "./components/AppBar/AppBar";
+import {CustomWebcam2} from "./components/Camera/CustomWebcam2";
 
 const App = () => {
   return (
     <>
       <CustomAppBar />
-      <CustomWebcam />
+      <CustomWebcam2 />
     </>
   );
 };

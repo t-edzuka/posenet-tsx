@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import Webcam from "react-webcam";
-import { getVideoSize, isPoses, WebcamRef } from "../../utils/validations";
+import { CanvasRef, isPoses, WebcamRef } from "../../utils/validations";
 import { useMultiPoseNets } from "../../utils/hooks/useMultiPoseNet.ts";
 import "@tensorflow/tfjs-backend-webgl";
-import { drawMultiPerson } from "../../utils/draw/custom-draw.ts";
+import {
+  drawMultiPerson,
+  getCanvas2dCtx,
+  setCanvasSizeFromWebcam,
+} from "../../utils/draw/custom-draw";
 import { WebcamStyle } from "../../utils/params";
 import { useInterval } from "react-use";
 
 const CustomWebcam = () => {
   const webcamRef: WebcamRef = useRef(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef: CanvasRef = useRef(null);
   const { model, loadPosenet, poses, setPoseEstimation } = useMultiPoseNets();
-
   // 初回レンダリング時のみ実行 loadPosenet();
   useEffect(() => {
     void loadPosenet();
@@ -23,12 +26,8 @@ const CustomWebcam = () => {
   useInterval(async () => {
     await setPoseEstimation(webcamRef, model);
     if (isPoses(poses) && canvasRef.current) {
-      const { videoWidth, videoHeight } = getVideoSize(
-        webcamRef?.current?.video as HTMLVideoElement
-      );
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
-      const ctx = canvasRef.current.getContext("2d");
+      setCanvasSizeFromWebcam(webcamRef, canvasRef);
+      const ctx = getCanvas2dCtx(canvasRef);
       drawMultiPerson(poses, 0.3, ctx);
     }
   }, 100);
