@@ -1,14 +1,15 @@
-import React from "react";
+// import {CustomWebcam2} from "./components/Camera/CustomWebcam2";
 import CustomAppBar from "./components/AppBar/AppBar";
-import {CustomWebcam2} from "./components/Camera/CustomWebcam2";
+import {Grid} from "@mui/material";
+import CustomWebcam from "./components/Camera/CustomWebcam";
 
-const App = () => {
-  return (
-    <>
-      <CustomAppBar />
-      <CustomWebcam2 />
-    </>
-  );
+export const App = () => {
+    return (
+        <>
+            <CustomAppBar/>
+            <Grid container spacing={2}>
+                <CustomWebcam/>
+            </Grid>
+        </>
+    );
 };
-
-export default App;

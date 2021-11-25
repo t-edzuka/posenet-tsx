@@ -78,7 +78,7 @@ export function isPoses(poses: any): poses is Pose[] {
 }
 
 export const isContext2D = (ctx: any): ctx is CanvasRenderingContext2D => {
-  return !!(ctx as CanvasRenderingContext2D);
+  return (ctx as CanvasRenderingContext2D).beginPath !== undefined;
 };
 
 export const isCanvas = (canvas: any): canvas is HTMLCanvasElement => {

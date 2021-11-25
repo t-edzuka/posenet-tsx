@@ -9,8 +9,8 @@ type Props = {
 export const HandleButton = (props:Props) => {
     const {enablePlay, onClick} = props;
     return (
-        <Button onClick={() => onClick()} sx={{position: "absolute", mx: 10}}>
-            <Typography variant="h6">{enablePlay ? "一時停止" : "再開"}</Typography>
+        <Button onClick={() => onClick()}>
+            <Typography variant="h4" color="secondary">{enablePlay ? "一時停止" : "再開"}</Typography>
         </Button>
     );
 };

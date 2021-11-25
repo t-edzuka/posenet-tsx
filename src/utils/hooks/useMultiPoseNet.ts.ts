@@ -1,20 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { estimationMultiConfig, modelConfig } from "../params";
 
 import "@tensorflow/tfjs-backend-webgl";
 import * as posenet from "@tensorflow-models/posenet";
 import { Pose, PoseNet } from "@tensorflow-models/posenet";
-import {
-  getSetVideoWH,
-  isWebcamRef, isWebcamRefValid,
-  WebcamRef,
-} from "../validations";
+import { getSetVideoWH, isWebcamRefValid, WebcamRef } from "../validations";
+// import { useMountedRef } from "./useMountedRef";
 
 export const calcMultiPersonPoses = async (
   webcamRef: WebcamRef,
   model: PoseNet | null
 ) => {
-  if (!isWebcamRef(webcamRef)) return null;
   if (!model) return null;
 
   // この操作は必須
@@ -36,19 +32,23 @@ export const useMultiPoseNets = () => {
   const [model, setModel] = useState<PoseNet | null>(null);
   const [poses, setPoses] = useState<Pose[] | null>(null);
 
-  const loadPosenet = useCallback(async () => {
-    const loadedModel = await posenet.load(modelConfig);
-    setModel((_) => loadedModel);
-    console.log("Posenet Model Loaded..");
+  const loadedModel = useMemo(async () => {
+    return await posenet.load(modelConfig);
   }, []);
 
-  const setPoseEstimation = async (
-    webcamRef: WebcamRef,
-    model: PoseNet | null
-  ) => {
-    const newPoses = await calcMultiPersonPoses(webcamRef, model);
-    setPoses(newPoses);
-  };
+  const loadPosenet = useCallback(async () => {
+    const _loaded = await loadedModel;
+    setModel((_) => _loaded);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const setPoseEstimation = useCallback(
+    async (webcamRef: WebcamRef, model: PoseNet | null) => {
+      const newPoses = await calcMultiPersonPoses(webcamRef, model);
+      setPoses(newPoses);
+    },
+    []
+  );
 
   return {
     model,
